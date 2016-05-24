@@ -7,18 +7,20 @@
 //
 
 #define k_toolbar_height    40
-#define k_pickerView_height 200
+#define k_pickerView_height 150
 #define k_screen_height  [UIScreen mainScreen].bounds.size.height
 #define k_screen_width   [UIScreen mainScreen].bounds.size.width
 
+
 #import "JYPickerView.h"
+
+static UIWindow *__sheetWindow = nil;
 
 @interface JYPickerView()<
 UIPickerViewDataSource,
 UIPickerViewDelegate
 >
 
-@property (nonatomic, strong) UIWindow     *window;
 @property (nonatomic, strong) UIToolbar    *toorbar;
 @property (nonatomic, strong) UIButton     *btnCancel;
 @property (nonatomic, strong) UIButton     *btnSubmit;
@@ -45,7 +47,6 @@ UIPickerViewDelegate
                          ];
         
         self.arrHours = @[
-                          @"0",
                           @"1",
                           @"2",
                           @"3",
@@ -69,6 +70,7 @@ UIPickerViewDelegate
                           @"21",
                           @"22",
                           @"23",
+                          @"0"
                           ];
         
         self.arrMinutes = @[
@@ -78,7 +80,6 @@ UIPickerViewDelegate
         
         self.backgroundColor = [UIColor purpleColor];
         
-        self.window = [[[UIApplication sharedApplication] delegate] window];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidden)];
         [self addGestureRecognizer:tap];
         
@@ -122,8 +123,6 @@ UIPickerViewDelegate
         [self.toorbar addSubview:self.btnSubmit];
         
         [self addSubview:self.toorbar];
-        
-        
     }
     
     return self;
@@ -133,18 +132,31 @@ UIPickerViewDelegate
 
 - (void)show
 {
-    self.tag = 999922;
-    [self.window addSubview:self];
+    UIWindow *window = [[UIWindow alloc] initWithFrame:(CGRect) {{0.f, 0.f}, [[UIScreen mainScreen] bounds].size}];
+    window.backgroundColor = [UIColor clearColor];
+    window.windowLevel = UIWindowLevelNormal;
+    window.alpha = 1.f;
+    window.hidden = NO;
+    window.rootViewController = [UIViewController new];
+    __sheetWindow = window;
+    
+    BOOL hasPickerView = NO;
+    for (UIView *view in __sheetWindow.subviews) {
+        if (view.tag == 888888) {
+            hasPickerView = YES;
+            break;
+        }
+    }
+    if (!hasPickerView) {
+        [__sheetWindow addSubview:self];
+    }
+    __sheetWindow.hidden = NO;
 }
 
 - (void)hidden
 {
-    NSArray *arrViews = self.window.subviews;
-    for (UIView * view in arrViews) {
-        if (view.tag == 999922) {
-            [view removeFromSuperview];
-        }
-    }
+    __sheetWindow.hidden = YES;
+    __sheetWindow = nil;
 }
 
 #pragma mark - Private Method

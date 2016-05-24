@@ -9,21 +9,26 @@
 #import "ViewController.h"
 #import "JYPickerView.h"
 
-@interface ViewController ()
+@interface ViewController (){
+    JYPickerView *p;
+}
 
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor grayColor];
-    JYPickerView *p =[[JYPickerView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [p show];
-    
-    
-}
 
+    p =[[JYPickerView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    p.onSubmitClickBlock = ^(NSInteger c1, NSInteger c2, NSInteger c3){
+        NSLog(@"%d %d %d",c1,c2,c3);
+    };
+}
+- (IBAction)show:(id)sender {
+    [p show];
+}
 
 
 @end
