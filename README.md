@@ -10,8 +10,8 @@
 并初始化 datePicker = [[JYPickerView alloc] initWithFrame:[UIScreen mainScreen].bounds]; <br>
 调用 show 方法即可 [datePicker show]; <br>
 * 3.实现block回调 <br>
-datePicker.onSubmitClickBlock = ^(NSDate *date){//这是处理回调事件};
-<br>
+datePicker.onSubmitClickBlock = ^(NSDate *date){//这是处理回调事件};<br><br><br><br>
+
 ![](https://github.com/majinyu888/JYPickerView/blob/master/JYPickerViewDemo.gif)  
 
 
