@@ -7,7 +7,7 @@
 //
 
 #define k_toolbar_height    40
-#define k_pickerView_height 150
+#define k_pickerView_height 200
 #define k_screen_height  [UIScreen mainScreen].bounds.size.height
 #define k_screen_width   [UIScreen mainScreen].bounds.size.width
 
@@ -78,8 +78,6 @@ UIPickerViewDelegate
                             @"30"
                             ];
         
-        self.backgroundColor = [UIColor purpleColor];
-        
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidden)];
         [self addGestureRecognizer:tap];
         
@@ -109,7 +107,8 @@ UIPickerViewDelegate
                                                                     k_toolbar_height * 2,
                                                                     k_toolbar_height)];
         [self.btnCancel setTitle:@"取消" forState:UIControlStateNormal];
-        [self.btnCancel setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [self.btnCancel.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [self.btnCancel setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         [self.btnCancel addTarget:self action:@selector(cancelClicked) forControlEvents:UIControlEventTouchUpInside];
         [self.toorbar addSubview:self.btnCancel];
         
@@ -118,7 +117,8 @@ UIPickerViewDelegate
                                                                     k_toolbar_height * 2,
                                                                     k_toolbar_height)];
         [self.btnSubmit setTitle:@"确定" forState:UIControlStateNormal];
-        [self.btnSubmit setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [self.btnSubmit.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [self.btnSubmit setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         [self.btnSubmit addTarget:self action:@selector(submitClicked) forControlEvents:UIControlEventTouchUpInside];
         [self.toorbar addSubview:self.btnSubmit];
         
@@ -197,9 +197,9 @@ UIPickerViewDelegate
     if (component == 0) {
         return self.arrDays[row];
     } else if (component == 1) {
-        return self.arrHours[row];
+        return [NSString stringWithFormat:@"%@ 点",self.arrHours[row]];
     } else {
-        return self.arrMinutes[row];
+        return [NSString stringWithFormat:@"%@ 分",self.arrMinutes[row]];
     }
 }
 
