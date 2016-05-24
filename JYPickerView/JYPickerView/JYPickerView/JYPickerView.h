@@ -15,7 +15,7 @@
  *
  *  @brief 确定点击
  */
-@property (nonatomic, copy) void (^onSubmitClickBlock)(NSInteger col1, NSInteger col2, NSInteger col3);
+@property (nonatomic, copy) void (^onSubmitClickBlock)(NSDate *date);
 
 /**
  *  @author mjy

@@ -10,7 +10,7 @@
 #import "JYPickerView.h"
 
 @interface ViewController (){
-    JYPickerView *p;
+    JYPickerView *datePicker;
 }
 
 @end
@@ -20,14 +20,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    p =[[JYPickerView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    p.onSubmitClickBlock = ^(NSInteger c1, NSInteger c2, NSInteger c3){
-        NSLog(@"%d %d %d",c1,c2,c3);
+    
+    UIBarButtonItem *showItem = [[UIBarButtonItem alloc] initWithTitle:@"显示"
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:self
+                                                                action:@selector(show:)];
+    self.navigationItem.rightBarButtonItem = showItem;
+    
+    
+    datePicker =[[JYPickerView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    datePicker.onSubmitClickBlock = ^(NSDate *date){
+        NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+        [fmt setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+        NSLog(@"%@",[fmt stringFromDate:date]);
     };
 }
-- (IBAction)show:(id)sender {
-    [p show];
+
+
+- (void)show:(id)sender
+{
+    [datePicker show];
 }
 
 

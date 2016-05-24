@@ -168,10 +168,20 @@ UIPickerViewDelegate
 
 - (void)submitClicked
 {
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    format.dateFormat = @"yyyy-MM-dd";
+    NSString *nowDateStr = [format stringFromDate:[NSDate date]];
+    //找出今天0点的时间
+    NSDate *date = [format dateFromString:nowDateStr];
+    //用户选择的时间  (天  小时  分钟 )
+    NSDate *userSelectDate = [date dateByAddingTimeInterval:60 * 60 * 24 * self.col1 + 60 * 60 *self.col2 + 60 * 30 * self.col3];
+    
     if (self.onSubmitClickBlock) {
-        self.onSubmitClickBlock(self.col1, self.col2, self.col3);
+        self.onSubmitClickBlock(userSelectDate);
     }
+    
     [self hidden];
+    
 }
 
 #pragma mark - DataSource & Delegate
