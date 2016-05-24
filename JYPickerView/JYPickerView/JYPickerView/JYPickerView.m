@@ -47,6 +47,7 @@ UIPickerViewDelegate
                          ];
         
         self.arrHours = @[
+                          @"0",
                           @"1",
                           @"2",
                           @"3",
@@ -69,8 +70,7 @@ UIPickerViewDelegate
                           @"20",
                           @"21",
                           @"22",
-                          @"23",
-                          @"0"
+                          @"23"
                           ];
         
         self.arrMinutes = @[
